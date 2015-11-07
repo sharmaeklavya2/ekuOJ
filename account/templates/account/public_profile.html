@@ -1,0 +1,37 @@
+{% extends 'account/base.html' %}
+
+{% block title_block %}{{PROJECT_NAME}} - profile{% endblock %}
+
+{% block body_block %}
+<div class="container">
+	<h1 class="text-center">{{puser.username}}</h1>
+	<div class="row">
+	<div class="col-sm-offset-4 col-sm-4">
+		<table class="table table-bordered">
+			<tr><td>Username:</td><td>{{puser.username}}</td></tr>
+			<tr><td>Name:</td><td>{{puser.get_full_name}}</td></tr>
+		</table>
+	</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-offset-2 col-sm-4 text-center">
+			{% if user.is_authenticated and user == puser %}
+				<p><a href="{% url 'account:edit_profile' %}">Edit profile</a></p>
+			{% endif %}
+			<p><a href="{% url 'account:user_list' %}">List of all users</a></p>
+		</div>
+		<div class="col-sm-4 text-center">
+			{% if user.groups.exists %}
+				<p>These are the groups {{puser}} is in:</p>
+				<ol>
+					{% for group in puser.groups.all %}
+					<li>{{group.name}}</li>
+					{% endfor %}
+				</ol>
+			{% else %}
+				<p>{{puser}} is not a part of any group.</p>
+			{% endif %}
+		</div>
+	</div>
+</div>
+{% endblock %}

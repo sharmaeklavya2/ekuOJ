@@ -1,0 +1,35 @@
+{% extends 'account/base.html' %}
+
+{% block title_block %}{{PROJECT_TITLE}} - Login{% endblock %}
+
+{% block body_block %}
+<div class="container">
+	<h1 class="text-center">Login</h1>
+	<div class="row">
+	<div class="col-sm-offset-3 col-sm-6">
+		<div class="jumbotron">
+			{% if login_error %}
+			<div class="alert alert-danger fade in">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				{{login_error}}
+			</div>
+			{% endif %}
+			<form method="POST" action="." role="form" id="login_form" >
+				{% csrf_token %}
+				<input type="hidden" name="next" value="{{next}}" />
+				<div class="form-group">
+					<input type="text" name="uoe" value="{{uoe}}" required="required" id="uoe" class="input-lg form-control" placeholder="Username or Email" />
+				</div>
+				<div class="form-group">
+					<input type="password" name="password" required="required" id="password" placeholder="Password" class="input-lg form-control" />
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-default btn-primary btn-signin btn-lg center-block">Login</button>
+				</div>
+			</form>
+		</div>
+		<p><a href="{% url 'account:register' %}">Register here</a> if you don't have an account</p>
+	</div>
+	</div>
+</div>
+{% endblock %}

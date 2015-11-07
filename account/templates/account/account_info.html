@@ -1,0 +1,42 @@
+{% extends 'account/base.html' %}
+
+{% block title_block %}{{PROJECT_TITLE}} - account{% endblock %}
+
+{% block body_block %}
+<div class="container">
+	<div class="row">
+	<div class="col-sm-offset-4 col-sm-4">
+		<h1 class="text-center">My Account</h1>
+		<table class="table table-bordered">
+			<tr><td>Username:</td><td>{{user.username}}</td></tr>
+			<tr><td>Name:</td><td>{{user.get_full_name}}</td></tr>
+			<tr><td>Email:</td><td>{{user.email}}</td></tr>
+			<tr><td>Staff:</td><td>{{user.is_staff}}</td></tr>
+			<tr><td>Admin:</td><td>{{user.is_superuser}}</td></tr>
+			<tr><td>Last login:</td><td>{{user.last_login}}</td></tr>
+			<tr><td>Date joined:</td><td>{{user.date_joined}}</td></tr>
+		</table>
+	</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-offset-2 col-sm-4 text-center">
+			<p><a href="{% url 'account:public_profile' user.username %}">My public profile</a></p>
+			<p><a href="{% url 'account:edit_profile' %}">Edit profile</a></p>
+			<p><a href="{% url 'account:user_list' %}">List of all users</a></p>
+			<p><a href="{% url 'account:change_password' %}">Change password</a></p>
+		</div>
+		<div class="col-sm-4 text-center">
+		{% if user.groups.exists %}
+			<p>These are the groups you are in:</p>
+			<ol>
+				{% for group in user.groups.all %}
+				<li>{{group.name}}</li>
+				{% endfor %}
+			</ol>
+		{% else %}
+			<p>You are not a part of any group.</p>
+		{% endif %}
+		</div>
+	</div>
+</div>
+{% endblock %}

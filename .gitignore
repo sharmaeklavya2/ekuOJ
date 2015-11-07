@@ -1,0 +1,31 @@
+# cache/gen
+*.pyc
+__pycache__/
+/README.html
+output.txt
+doc/*.html
+
+# local
+*.db
+/media/*
+/staticfiles/*
+venv/
+local_conf/
+/extstatic/
+OJL3/
+OJL3
+OJ_data/
+OJ_data
+migrations/
+
+# private
+secret.txt
+/TODO.txt
+/.env
+
+# Trash
+*~
+Desktop.ini
+.DS_Store
+.AppleDouble
+.LSOverride

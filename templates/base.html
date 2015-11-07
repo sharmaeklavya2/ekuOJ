@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!--{% load staticfiles %}-->
+<html lang="en">
+<head>
+	<title>{% block title_block %}
+		{% if base_title %}
+			{{base_title}}
+		{% else %}
+			{{PROJECT_TITLE}}
+		{% endif %}
+	{% endblock %}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta charset="utf-8" />
+
+	<!--
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" ></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js" ></script>
+	<script async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML" ></script>
+	-->
+
+	<link rel="stylesheet" href="/static/bootstrap3/css/bootstrap.min.css" />
+	<script src="/static/jquery.min.js" ></script>
+	<script src="/static/bootstrap3/js/bootstrap.min.js" ></script>
+	<script async src="/static/mathjax/MathJax.js?config=TeX-AMS_HTML"></script>
+
+	<style>
+	{% block style_block %}{% endblock %}
+	</style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-inverse">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="/">{{PROJECT_TITLE}}</a>
+		</div>
+		<div class="collapse navbar-collapse" id="myNavbar">
+			<ul class="nav navbar-nav navbar-right">
+				{% if user.is_authenticated %}
+					<li><a href="{% url 'account:account_info' %}">Logged in as: {{user.username}}</a></li>
+					<li><a href="{% url 'account:logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+				{% else %}
+					<li><a href="{% url 'account:login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+					<li><a href="{% url 'account:register' %}"><span class="glyphicon glyphicon-user"></span> Register</a></li>
+				{% endif %}
+			</ul>
+		</div>
+	</div>
+</nav>
+
+{% block body_block %}
+{{base_body}}
+{% endblock %}
+</body>
+</html>

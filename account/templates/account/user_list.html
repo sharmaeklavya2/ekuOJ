@@ -1,0 +1,18 @@
+{% extends 'account/base.html' %}
+
+{% block title_block %}{{PROJECT_TITLE}} - Users{% endblock %}
+
+{% block body_block %}
+<div class="container">
+	<h1 class="text-center">List of all users registered with {{PROJECT_TITLE}}</h1>
+	{% if user_list %}
+		<ol>
+		{% for u in user_list %}
+			<li><a href="{% url 'account:public_profile' u.username %}">{{u.username}}</a></li>
+		{% endfor %}
+		</ol>
+	{% else %}
+		<p>There are no users registered at this site</p>
+	{% endif %}
+</div>
+{% endblock %}
