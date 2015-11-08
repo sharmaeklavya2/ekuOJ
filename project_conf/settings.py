@@ -10,6 +10,8 @@ CONF_DIR_NAME = os.path.relpath(CONF_DIR, BASE_DIR)
 PROJECT_NAME = "ekuOJ"
 PROJECT_TITLE = "ekuOJ"
 
+OJ_DATA_DIR = os.path.realpath(os.path.join(BASE_DIR, "OJ_data"))
+
 # Quick-start development settings - unsuitable for production
 SECRET_KEY = "a9w*6qa8)-)og5l+w1u+sx#6zkav!@u^ev1*1=!$&jr=lh1b1_"
 DEBUG = True
@@ -93,3 +95,11 @@ EXTSTATIC_DIR = os.path.join(BASE_DIR, "extstatic")
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"), EXTSTATIC_DIR)
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+# Other settings
+
+import json
+
+DEFAULT_SOURCE_LIM = 50000
+LANG_INFO_PATH = os.path.join(BASE_DIR, "OJL3", "lang_info.json")
+LANG_INFO = json.load(open(LANG_INFO_PATH))

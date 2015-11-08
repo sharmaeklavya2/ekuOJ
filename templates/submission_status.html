@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title_block %}Status - {{sub.id}}{% endblock %}
+
+{% block body_block %}
+<div class="container">
+	<h1>Status for submission id {{sub.id}}</h1>
+	<p>User: {{sub.user.username}}</p>
+	<p>Contest: {{sub.problem.contest.ccode}}</p>
+	<p>Problem: {{sub.problem.pcode}}</p>
+	<p>Language: {{sub.lang}}</p>
+	<p>Status: {{sub.get_status_str}}</p>
+{% if sub.status_info %}
+	<pre>{{sub.status_info}}</pre>
+{% endif %}
+</div>
+{% endblock %}

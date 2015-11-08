@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title_block %}{{PROJECT_TITLE}} - Submit solution{% endblock %}
+
+{% block body_block %}
+<div class="container">
+	<h1 class="text-center">Submit</h1>
+	<div class="row">
+	<div class="col-sm-offset-4 col-sm-4">
+		<p>Problem: {{problem.pcode}}</p>
+		<p>Source code limit: {{source_lim}} bytes</p>
+		{% if error_msg %}
+		<div class="alert alert-danger fade in">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			{{error_msg}}
+		</div>
+		{% endif %}
+		<div class="jumbotron">
+			<form method="POST" action="." enctype="multipart/form-data" id="submit_form">
+				{% csrf_token %}
+				<div class="form-group">
+					<select name="lang" class="form-control" required="required">
+						<option value="" disabled="disabled" selected="selected" style="display:none"></option>
+					{% for langcode, name_and_ext in lang_info %}
+						<option value="{{langcode}}">{{name_and_ext.name}}</option>
+					{% endfor %}
+					</select>
+				</div>
+				<div class="form-group">
+					<input type="file" name="file" />
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-default btn-primary">Submit</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	</div>
+</div>
+{% endblock %}

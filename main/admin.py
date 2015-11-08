@@ -9,7 +9,7 @@ class ProblemAdmin(ModelAdmin):
 	list_display = ("pcode", "title", "contest")
 
 class SubmissionAdmin(ModelAdmin):
-	list_display = ("problem", "user", "lang", "success")
+	list_display = ("id", "problem", "user", "lang", "get_status_str")
 
 admin.site.register(Contest, ContestAdmin)
 admin.site.register(Problem, ProblemAdmin)
