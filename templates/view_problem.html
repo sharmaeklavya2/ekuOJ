@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title_block %}{{PROJECT_TITLE}} - {{problem.pcode}}{% endblock %}
+
+{% block body_block %}
+<div class="container">
+	<h1 class="text-center">{{problem.get_name}}</h1>
+	<div class="row">
+		<div class="col-sm-9 text-justify">
+			{{prob_body|safe}}
+		{% for sname, sdata in samples.items %}
+			<div class="row">
+				<div class="col-sm-6">
+					<h3>Sample input</h3>
+					<pre>{{sdata.in}}</pre>
+				</div>
+				<div class="col-sm-6">
+					<h3>Sample output</h3>
+					<pre>{{sdata.out}}</pre>
+				</div>
+			</div>
+		{% endfor %}
+		</div>
+		<div class="col-sm-3">
+			<p>Contest - <a href="{{problem.contest.get_view_url}}">{{problem.contest.ccode}}</a></p>
+			<p><a role="button" class="btn btn-default">All submissions</a></p>
+			<p><a role="button" class="btn btn-default">My submissions</a></p>
+			<p>
+				{% if problem.contest.can_submit %}
+				<a role="button" class="btn btn-default btn-primary" href="{{problem.get_submit_url}}">
+				{% else %}
+				<a role="button" class="btn btn-default btn-primary disabled" href="{{problem.get_submit_url}}">
+				{% endif %}
+					Submit
+				</a>
+			</p>
+			<table class="table table-bordered">
+				<tr><td>Source code limit</td><td>{{problem.get_source_lim}} bytes</td></tr>
+				<tr><td>Time limit</td><td>{{problem.get_time_lim_s}} s</td></tr>
+				<tr><td>Memory limit</td><td>{{problem.get_mem_lim_k}} kB</td></tr>
+				<tr><td>Output limit</td><td>{{problem.get_output_lim_k}} kB</td></tr>
+			</table>
+		</div>
+	</div>
+</div>
+{% endblock %}

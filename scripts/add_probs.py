@@ -26,6 +26,9 @@ def add_prob(prob_path, contest=None):
 	try:
 		prob_data = json.load(open(data_path))
 		problem.source_lim = prob_data.get("source_lim", None)
+		problem.time_lim_s = prob_data.get("time_lim_s", None)
+		problem.mem_lim_k = prob_data.get("mem_lim_k", None)
+		problem.output_lim_k = prob_data.get("output_lim_k", None)
 	except FileNotFoundError:
 		pass
 	except ValueError as e:

@@ -10,6 +10,7 @@ To set up this online judge, you will need
 2. Django 1.8
 3. [sharmaeklavya2/OJL3](https://github.com/sharmaeklavya2/OJL3)
 4. [ochko/safeexec](https://github.com/ochko/safeexec)
+5. [Markdown](https://pypi.python.org/pypi/Markdown) package
 
 Steps to build:
 

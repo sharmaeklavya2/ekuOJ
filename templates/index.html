@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title_block %}{{PROJECT_TITLE}} - Welcome{% endblock %}
+
+{% block body_block %}
+<div class="container">
+	<h1 class="text-center">ekuOJ</h1>
+	<p class="text-center"><a class="btn btn-lg btn-primary" href="{{main_contest_url}}">Start solving problems</a></p>
+	<h2>Contests:</h2>
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>Sno</th>
+				<th>Contest Title</th>
+				<th>Contest Code</th>
+			</tr>
+		</thead>
+		<tbody>
+		{% for contest in contests %}
+			<tr>
+				<td>{{forloop.counter}}</td>
+				<td><a href="{{contest.get_view_url}}">{{contest.get_name}}</a></td>
+				<td>{{contest.ccode}}</td>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+</div>
+{% endblock %}

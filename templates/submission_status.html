@@ -5,11 +5,24 @@
 {% block body_block %}
 <div class="container">
 	<h1>Status for submission id {{sub.id}}</h1>
-	<p>User: {{sub.user.username}}</p>
-	<p>Contest: {{sub.problem.contest.ccode}}</p>
-	<p>Problem: {{sub.problem.pcode}}</p>
-	<p>Language: {{sub.lang}}</p>
-	<p>Status: {{sub.get_status_str}}</p>
+	<div class="row">
+	<div class="col-sm-4">
+		<table class="table table-bordered">
+			<tr><td>User</td><td><a href="{% url 'account:public_profile' sub.user.username %}">{{sub.user.username}}</a></td></tr>
+			<tr><td>Contest</td><td><a href="{{sub.problem.contest.get_view_url}}">{{sub.problem.contest.ccode}}</a></td></tr>
+			<tr><td>Problem</td><td><a href="{{sub.problem.get_view_url}}">{{sub.problem.pcode}}</a></td></tr>
+			<tr><td>Language</td><td>{{lang_name}}</td></tr>
+		{% if sub.get_status_str == "PASS" %}
+			<tr class="success">
+		{% else %}
+			<tr class="danger">
+		{% endif %}
+				<td>Status</td>
+				<td>{{sub.get_status_str}}</td>
+			</tr>
+		</table>
+	</div>
+	</div>
 {% if sub.status_info %}
 	<pre>{{sub.status_info}}</pre>
 {% endif %}

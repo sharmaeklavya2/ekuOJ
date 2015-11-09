@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title_block %}{{PROJECT_TITLE}} - {{contest.ccode}}{% endblock %}
+
+{% block body_block %}
+<div class="container">
+	<h1 class="text-center">Problems in {{contest.get_name}}</h1>
+	{% if contest.can_view %}
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>Sno</th>
+				<th>Problem Name</th>
+				<th>Problem Code</th>
+				<th>Successful submissions</th>
+				<th>Total submissions</th>
+			</tr>
+		</thead>
+		<tbody>
+		{% for problem in problems %}
+		{% if user.is_authenticated %}
+			{% if problem.status == "PASS" %}
+			<tr class="success">
+			{% elif problem.status == "FAIL" %}
+			<tr class="danger">
+			{% else %}
+			<tr>
+			{% endif %}
+		{% else %}
+			<tr>
+		{%endif %}
+				<td>{{forloop.counter}}</td>
+				<td><a href="{{problem.get_view_url}}">{{problem.get_name}}</a></td>
+				<td><a href="{{problem.get_submit_url}}">{{problem.pcode}}</a></td>
+				<td>{{problem.pass_subs}}</td>
+				<td>{{problem.subs}}</td>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+	{% else %}
+	<h3 class="text-danger">This contest is locked.</h3>
+	{% endif %}
+</div>
+{% endblock %}
