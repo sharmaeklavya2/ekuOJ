@@ -15,6 +15,10 @@ class Contest(models.Model):
 	title = models.TextField("Contest Title", blank=True)
 	can_view = models.BooleanField("Can problem statements be viewed", default=True)
 	can_submit = models.BooleanField("Can solutions be submitted", default=True)
+	def get_can_view(self):
+		return self.can_view
+	def get_can_submit(self):
+		return self.can_submit
 	def __str__(self):
 		return self.ccode
 	def get_name(self):
@@ -33,10 +37,12 @@ class Problem(models.Model):
 	pcode = models.CharField("Problem Code", max_length=30, blank=False)
 	title = models.TextField("Problem Title", blank=True)
 	contest = models.ForeignKey(Contest)
-	source_lim = models.IntegerField("Source code limit", null=True)
-	time_lim_s = models.IntegerField("Time limit", null=True)
-	mem_lim_k = models.IntegerField("Memory limit", null=True)
-	output_lim_k = models.IntegerField("Output limit", null=True)
+	can_view = models.BooleanField(default=True)
+	can_submit = models.BooleanField(default=False)
+	source_lim = models.PositiveIntegerField("Source code limit", null=True, blank=True)
+	time_lim_s = models.PositiveIntegerField("Time limit", null=True, blank=True)
+	mem_lim_k = models.PositiveIntegerField("Memory limit", null=True, blank=True)
+	output_lim_k = models.PositiveIntegerField("Output limit", null=True, blank=True)
 	def __str__(self):
 		return self.pcode
 	def get_name(self):
@@ -52,6 +58,10 @@ class Problem(models.Model):
 		return reverse('main:submit', args=(self.contest.ccode, self.pcode))
 	def get_absolute_url(self):
 		return self.get_view_url()
+	def get_can_view(self):
+		return self.can_view and self.contest.can_view
+	def get_can_submit(self):
+		return self.can_submit and self.contest.can_submit
 
 	def get_source_lim(self):
 		if self.source_lim==None:
@@ -81,7 +91,7 @@ class Submission(models.Model):
 	problem = models.ForeignKey(Problem)
 	status = models.IntegerField()
 	status_info = models.TextField(blank=True)
-	submit_time = models.DateTimeField(null=True)
+	submit_time = models.DateTimeField(null=True, blank=True)
 	STATUS_STRS = ("PASS", "FAIL", "CMPLE", "PEND")
 	STATUS_CODES = {"PASS": 0, "FAIL": 1, "CMPLE": 2, "PEND": 3}
 	def __str__(self):

@@ -28,7 +28,7 @@ def index(request):
 def submit(request, ccode, pcode):
 	contest = get_object_or_404(Contest, ccode=ccode)
 	problem = get_object_or_404(Problem, pcode=pcode, contest=contest)
-	if not contest.can_submit:
+	if not problem.get_can_submit():
 		raise PermissionDenied
 	context_dict = {"contest": contest, "problem": problem}
 	source_lim = problem.get_source_lim()
@@ -102,7 +102,7 @@ def get_samples(prob_path):
 def view_problem(request, ccode, pcode):
 	contest = get_object_or_404(Contest, ccode=ccode)
 	problem = get_object_or_404(Problem, pcode=pcode, contest=contest)
-	if not contest.can_view:
+	if not problem.get_can_view():
 		raise PermissionDenied("Disallowed")
 	context_dict = {"contest": contest, "problem": problem}
 
@@ -119,7 +119,7 @@ def view_problem(request, ccode, pcode):
 def view_contest(request, ccode):
 	contest = get_object_or_404(Contest, ccode=ccode)
 	context_dict = {"contest": contest}
-	if contest.can_view:
+	if contest.get_can_view():
 		problems = Problem.objects.filter(contest=contest)
 	else:
 		problems = []

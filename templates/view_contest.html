@@ -5,7 +5,7 @@
 {% block body_block %}
 <div class="container">
 	<h1 class="text-center">Problems in {{contest.get_name}}</h1>
-	{% if contest.can_view %}
+	{% if contest.get_can_view %}
 	<table class="table table-bordered">
 		<thead>
 			<tr>

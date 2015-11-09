@@ -70,10 +70,10 @@ def register(request):
 				context_dict["register_error"] = "username cannot contain @"
 			elif User.objects.filter(username=username).exists():
 				context_dict["register_error"] = "A user with this username already exists"
-			elif User.objects.filter(email=email).exists():
+			elif email and User.objects.filter(email=email).exists():
 				context_dict["register_error"] = "A user with this email already exists"
 			else:
-				user = User(username=username)
+				user = User(username=username, email=email)
 				user.set_password(password)
 				user.save()
 				user = authenticate(username=username, password=password)
