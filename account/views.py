@@ -86,11 +86,11 @@ def register(request):
 _not_impl_string = "This page is not yet implemented"
 
 def index(request):
-	return HttpResponseRedirect(reverse("account:account_info"))
+	return HttpResponseRedirect(reverse("account:myaccount"))
 
 @login_required
-def account_info(request):
-	return render(request, "account/account_info.html", {})
+def myaccount(request):
+	return render(request, "account/myaccount.html", {})
 
 def public_profile(request, username):
 	puser = get_object_or_404(User, username=username)

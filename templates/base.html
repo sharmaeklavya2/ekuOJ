@@ -44,7 +44,7 @@
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav navbar-right">
 				{% if user.is_authenticated %}
-					<li><a href="{% url 'account:account_info' %}">Logged in as: {{user.username}}</a></li>
+					<li><a href="{% url 'account:myaccount' %}">Logged in as: {{user.username}}</a></li>
 					<li><a href="{% url 'account:logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
 				{% else %}
 					<li><a href="{% url 'account:login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
