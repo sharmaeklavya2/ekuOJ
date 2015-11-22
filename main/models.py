@@ -40,7 +40,7 @@ class Problem(models.Model):
 	can_view = models.BooleanField(default=True)
 	can_submit = models.BooleanField(default=False)
 	source_lim = models.PositiveIntegerField("Source code limit", null=True, blank=True)
-	time_lim_s = models.PositiveIntegerField("Time limit", null=True, blank=True)
+	time_lim_s = models.FloatField("Time limit", null=True, blank=True)
 	mem_lim_k = models.PositiveIntegerField("Memory limit", null=True, blank=True)
 	output_lim_k = models.PositiveIntegerField("Output limit", null=True, blank=True)
 	def __str__(self):
