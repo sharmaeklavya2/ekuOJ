@@ -9,7 +9,7 @@ To set up this online judge, you will need
 1. Python 3.4 (It might run on lower python 3 versions as well; I haven't tried that)
 2. Django 1.8
 3. [sharmaeklavya2/OJL3](https://github.com/sharmaeklavya2/OJL3)
-4. [ochko/safeexec](https://github.com/ochko/safeexec)
+4. [cemc/safeexec](https://github.com/cemc/safeexec)
 5. [Markdown](https://pypi.python.org/pypi/Markdown) package
 
 Steps to build:
