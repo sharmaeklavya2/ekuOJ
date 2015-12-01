@@ -139,3 +139,51 @@ def view_contest(request, ccode):
 				p.status = "NA"
 	context_dict["problems"] = problems
 	return render(request, "view_contest.html", context_dict)
+
+def status(request):
+	arg_dict = {
+		"user": "user__username",
+		"ccode": "problem__contest__ccode",
+		"pcode": "problem__pcode",
+		"status": "status",
+		"lang": "lang"
+	}
+	context_dict = {}
+	kwargs={}
+	for arg in arg_dict:
+		if arg in request.GET:
+			kwargs[arg] = request.GET[arg]
+
+	if "pcode" in kwargs and "ccode" not in kwargs:
+		pcode_parts = kwargs["pcode"].split(".", maxsplit=1)
+		print(pcode_parts)
+		if len(pcode_parts)==2:
+			kwargs["ccode"] = pcode_parts[0]
+			kwargs["pcode"] = pcode_parts[1]
+	if "status" in kwargs:
+		kwargs["status"] = Submission.STATUS_CODES[kwargs["status"]]
+	kwargs = {arg_dict[key]: value for (key,value) in kwargs.items()}
+
+	order_by_args = []
+	sort_args = (",".join(request.GET.getlist("sort"))).split(",")
+	for arg in sort_args:
+		reverse = arg.startswith("-")
+		reverse_str = ""
+		if reverse:
+			arg = arg[1:]
+			reverse_str = "-"
+		if arg in arg_dict:
+			order_by_args.append(reverse_str+arg_dict[arg])
+
+	print(kwargs)
+	print(order_by_args)
+	print(sort_args)
+	submissions = Submission.objects.filter(problem__contest__can_view=True, problem__can_view=True)
+	if kwargs:
+		submissions = submissions.filter(**kwargs)
+	if order_by_args:
+		submissions = submissions.order_by(*order_by_args)
+	else:
+		submissions = submissions.order_by("-id")
+	context_dict["submissions"] = submissions
+	return render(request, "status.html", context_dict)

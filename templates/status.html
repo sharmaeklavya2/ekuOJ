@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title_block %}{{PROJECT_TITLE}} - Status{% endblock %}
+
+{% block body_block %}
+<div class="container">
+	<h1 class="text-center">Status</h1>
+	{% if error %}
+	<div class="alert alert-danger fade in">
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		{{error}}
+	</div>
+	{% endif %}
+	{% if submissions %}
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Date and Time</th>
+				<th>User</th>
+				<th>Status</th>
+				<th>Contest</th>
+				<th>Problem</th>
+				<th>Problem Title</th>
+				<!--<th>Time</th>
+				<th>Memory</th>-->
+				<th>Language</th>
+			</tr>
+		</thead>
+		<tbody>
+		{% for sub in submissions %}
+			{% if sub.get_status_str == "PASS" %}
+			<tr class="success">
+			{% elif sub.get_status_str == "FAIL" %}
+			<tr class="danger">
+			{% elif sub.get_status_str == "CMPLE" %}
+			<tr class="danger">
+			{% else %}
+			<tr>
+			{% endif %}
+				<td><a href="{% url 'main:submission_status' sub.id %}">{{sub.id}}</a></td>
+				<td>{{sub.submit_time}}</td>
+				<td><a href="{% url 'account:public_profile' sub.user.username %}">{{sub.user}}</a></td>
+				<td>{{sub.get_status_str}}</td>
+				<td><a href="{% url 'main:view_contest' sub.problem.contest.ccode %}">{{sub.problem.contest.ccode}}</td>
+				<td><a href="{% url 'main:view_problem' sub.problem.contest.ccode sub.problem.pcode %}">{{sub.problem.pcode}}</td>
+				<td>{{sub.problem.title}}</td>
+				<!--<th>{#sub.time_s#}</td>
+				<td>{#sub.mem_k#}</td>-->
+				<td>{{sub.lang}}</td>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+	{% else %}
+	<p>No submissions found.</p>
+	{% endif %}
+</div>
+{% endblock %}
