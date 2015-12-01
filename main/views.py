@@ -154,30 +154,26 @@ def status(request):
 		if arg in request.GET:
 			kwargs[arg] = request.GET[arg]
 
-	if "pcode" in kwargs and "ccode" not in kwargs:
-		pcode_parts = kwargs["pcode"].split(".", maxsplit=1)
-		print(pcode_parts)
-		if len(pcode_parts)==2:
-			kwargs["ccode"] = pcode_parts[0]
-			kwargs["pcode"] = pcode_parts[1]
 	if "status" in kwargs:
-		kwargs["status"] = Submission.STATUS_CODES[kwargs["status"]]
+		try:
+			kwargs["status"] = Submission.STATUS_CODES[kwargs["status"].upper()]
+		except KeyError:
+			kwargs["status"] = -1
 	kwargs = {arg_dict[key]: value for (key,value) in kwargs.items()}
 
 	order_by_args = []
 	sort_args = (",".join(request.GET.getlist("sort"))).split(",")
 	for arg in sort_args:
-		reverse = arg.startswith("-")
-		reverse_str = ""
-		if reverse:
+		if arg.startswith("-"):
 			arg = arg[1:]
 			reverse_str = "-"
-		if arg in arg_dict:
+		else:
+			reverse_str = ""
+		if arg in arg_dict.keys():
 			order_by_args.append(reverse_str+arg_dict[arg])
+		if arg == "id":
+			order_by_args.append(reverse_str+arg)
 
-	print(kwargs)
-	print(order_by_args)
-	print(sort_args)
 	submissions = Submission.objects.filter(problem__contest__can_view=True, problem__can_view=True)
 	if kwargs:
 		submissions = submissions.filter(**kwargs)
