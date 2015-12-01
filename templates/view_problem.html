@@ -23,9 +23,10 @@
 		</div>
 		<div class="col-sm-3">
 			<p>Contest - <a href="{{problem.contest.get_view_url}}">{{problem.contest.ccode}}</a></p>
-			<p><a role="button" class="btn btn-default" href="{% url 'main:status' %}?ccode={{problem.contest.ccode}}&pcode={{problem.pcode}}">All submissions</a></p>
+			<p>Problem Code - {{problem.pcode}}</p>
+			<p><a role="button" class="btn btn-default" href="{% url 'main:status' %}?ccode={{problem.contest.ccode}}&amp;pcode={{problem.pcode}}">All submissions</a></p>
 			{% if user.is_authenticated %}
-			<p><a role="button" class="btn btn-default" href="{% url 'main:status' %}?ccode={{problem.contest.ccode}}&pcode={{problem.pcode}}&user={{user.username}}">My submissions</a></p>
+			<p><a role="button" class="btn btn-default" href="{% url 'main:status' %}?ccode={{problem.contest.ccode}}&amp;pcode={{problem.pcode}}&amp;user={{user.username}}">My submissions</a></p>
 			{% else %}
 			<p><a role="button" class="btn btn-default disabled">My submissions</a></p>
 			{% endif %}

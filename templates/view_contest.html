@@ -6,6 +6,14 @@
 <div class="container">
 	<h1 class="text-center">Problems in {{contest.get_name}}</h1>
 	{% if contest.get_can_view %}
+	<p>
+		<a class="btn btn-default" href="{% url 'main:status' %}?ccode={{contest.ccode}}">All submissions</a>
+		{% if user.is_authenticated %}
+		<a class="btn btn-default" href="{% url 'main:status' %}?ccode={{contest.ccode}}&amp;user={{user.username}}">My submissions</a>
+		{% else %}
+		<a class="btn btn-default disabled">My submissions</a>
+		{% endif %}
+	</p>
 	<table class="table table-bordered">
 		<thead>
 			<tr>

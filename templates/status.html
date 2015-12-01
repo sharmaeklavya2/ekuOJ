@@ -44,7 +44,7 @@
 				<td>{{sub.get_status_str}}</td>
 				<td><a href="{% url 'main:view_contest' sub.problem.contest.ccode %}">{{sub.problem.contest.ccode}}</td>
 				<td><a href="{% url 'main:view_problem' sub.problem.contest.ccode sub.problem.pcode %}">{{sub.problem.pcode}}</td>
-				<td>{{sub.problem.title}}</td>
+				<td>{{sub.problem.get_name}}</td>
 				<!--<th>{#sub.time_s#}</td>
 				<td>{#sub.mem_k#}</td>-->
 				<td>{{sub.lang}}</td>
