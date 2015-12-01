@@ -12,6 +12,7 @@
 			<tr><td>Contest</td><td><a href="{{sub.problem.contest.get_view_url}}">{{sub.problem.contest.ccode}}</a></td></tr>
 			<tr><td>Problem</td><td><a href="{{sub.problem.get_view_url}}">{{sub.problem.pcode}}</a></td></tr>
 			<tr><td>Language</td><td>{{lang_name}}</td></tr>
+			<tr><td>Submitted at</td><td>{{sub.submit_time}}</td></tr>
 		{% if sub.get_status_str == "PASS" %}
 			<tr class="success">
 		{% else %}

@@ -91,7 +91,7 @@ class Submission(models.Model):
 	problem = models.ForeignKey(Problem)
 	status = models.IntegerField()
 	status_info = models.TextField(blank=True)
-	submit_time = models.DateTimeField(null=True, blank=True)
+	submit_time = models.DateTimeField()
 	STATUS_STRS = ("PASS", "FAIL", "CMPLE", "PEND")
 	STATUS_CODES = {"PASS": 0, "FAIL": 1, "CMPLE": 2, "PEND": 3}
 	def __str__(self):
