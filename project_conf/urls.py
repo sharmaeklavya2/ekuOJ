@@ -1,4 +1,4 @@
-from django.conf.urls import include, url
+from django.conf.urls import include, url, static
 from django.contrib import admin
 
 urlpatterns = [
@@ -10,6 +10,4 @@ urlpatterns = [
 from . import settings
 
 if settings.DEBUG:
-	urlpatterns+= [
-		url(r'media/(?P<path>.*)', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT})
-	]
+	urlpatterns+= static.static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -36,7 +36,7 @@ class Contest(models.Model):
 class Problem(models.Model):
 	pcode = models.CharField("Problem Code", max_length=30, blank=False)
 	title = models.TextField("Problem Title", blank=True)
-	contest = models.ForeignKey(Contest)
+	contest = models.ForeignKey(Contest, on_delete=models.CASCADE)
 	can_view = models.BooleanField(default=True)
 	can_submit = models.BooleanField(default=False)
 	source_lim = models.PositiveIntegerField("Source code limit", null=True, blank=True)
@@ -87,8 +87,8 @@ class Problem(models.Model):
 class Submission(models.Model):
 	lang = models.CharField("Language", max_length=30, blank=False)
 	fname = models.CharField("File name", max_length=255, blank=False)
-	user = models.ForeignKey(User)
-	problem = models.ForeignKey(Problem)
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	problem = models.ForeignKey(Problem, on_delete=models.CASCADE)
 	status = models.IntegerField()
 	status_info = models.TextField(blank=True)
 	submit_time = models.DateTimeField()
