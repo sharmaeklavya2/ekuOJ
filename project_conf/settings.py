@@ -103,3 +103,7 @@ import json
 DEFAULT_SOURCE_LIM = 50000
 LANG_INFO_PATH = os.path.join(BASE_DIR, "OJL3", "lang_info.json")
 LANG_INFO = json.load(open(LANG_INFO_PATH))
+
+from django.contrib import admin
+admin.site.site_header = PROJECT_TITLE
+admin.site.site_title = PROJECT_TITLE + " admin"
