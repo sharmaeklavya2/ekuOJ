@@ -21,3 +21,7 @@ Steps to build:
 5. From ekuOJ's root directory, run `python3 manage.py makemigrations` and then `python3 manage.py migrate`
 
 ekuOJ is now set up. Run `python3 manage.py runserver` to run ekuOJ on django's development server.
+
+## License
+
+ekuOJ is released under the [MIT License](http://www.opensource.org/licenses/MIT).
