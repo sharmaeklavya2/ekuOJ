@@ -17,6 +17,7 @@ OJL3
 OJ_data/
 OJ_data
 migrations/
+/tags
 
 # private
 secret.txt
